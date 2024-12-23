@@ -87,7 +87,7 @@ let o_state = {
     
     `,
     o_shader: {},
-    o_state_notifire: {},
+    // o_state_notifire: {},
     n_idx_a_o_shader,
     a_o_shader,
     a_o_midi:[],
@@ -209,7 +209,7 @@ document.body.appendChild(
                     f_download_midi_files();
                   }
                 },
-                o_mod_notifire.f_o_js(o_state.o_state_notifire),
+                // o_mod_notifire.f_o_js(o_state.o_state_notifire),
                 {
                     s_tag: "input",
                     type: 'file',
@@ -256,7 +256,7 @@ document.body.appendChild(
         }
     )
 )
-o_mod_notifire.f_o_throw_notification(o_state.o_state_notifire,'hello!')
+// o_mod_notifire.f_o_throw_notification(o_state.o_state_notifire,'hello!')
 
 function setByPath(obj, path, value) {
     const pathParts = path.match(/([^[.\]]+)/g); // Split the path into parts (e.g., ['a', 'b', '3', 'c', 'd'])
@@ -362,3 +362,37 @@ function f_visualize_midi(midi, baseColor = '#000000') {
     });
   });
 }
+
+
+function f_a_s_path_iterate(obj, currentPath = '') {
+  let paths = [];
+  
+  for (let key in obj) {
+      if (obj.hasOwnProperty(key)) {
+          const newPath = Array.isArray(obj) 
+              ? `${currentPath}[${key}]` 
+              : (currentPath ? `${currentPath}.${key}` : key);
+          
+          if (typeof obj[key] === 'object' && obj[key] !== null) {
+              paths = paths.concat(f_a_s_path_iterate(obj[key], newPath));
+          } else {
+            console.log(newPath)
+              let o_el = document.querySelector(`[s_prop_sync="${newPath}"]`);
+              console.log(o_el);
+              console.log(o_el);
+              console.log(o_el);
+              if(o_el){
+                console.log(obj[key])
+                  o_el.value = obj[key]
+              }
+              paths.push(newPath);
+          }
+      }
+  }
+  
+  return paths;
+}
+
+f_a_s_path_iterate(o_state);
+
+
