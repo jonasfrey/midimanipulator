@@ -171,6 +171,10 @@ document.body.appendChild(
                     s_prop_sync: 'n_tracks',
                 },
                 {
+                  s_tag: "textarea", 
+                  s_prop_sync: 's_f_n_idx__distribution'
+                },
+                {
                   s_tag: 'button', 
                   innerText: "generate", 
                   onclick: ()=>{
@@ -294,6 +298,10 @@ let f_input_change = function(o_e){
 document.querySelectorAll('input').forEach(input => {
     input.addEventListener('input', f_input_change);  // For live updates
     input.addEventListener('change', f_input_change); // For committed changes
+});
+document.querySelectorAll('textarea').forEach(input => {
+  input.addEventListener('input', f_input_change);  // For live updates
+  input.addEventListener('change', f_input_change); // For committed changes
 });
 
 function f_clear_canvas() {
